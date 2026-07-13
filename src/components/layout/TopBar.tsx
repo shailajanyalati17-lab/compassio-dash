@@ -40,6 +40,15 @@ export function TopBar() {
       </Link>
 
       <button
+        onClick={toggle}
+        className="h-9 w-9 grid place-items-center rounded-lg border border-border hover:bg-accent transition"
+        aria-label="Toggle theme"
+        title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+      >
+        {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      </button>
+
+      <button
         onClick={() => navigate({ to: "/notifications" })}
         className="relative h-9 w-9 grid place-items-center rounded-lg border border-border hover:bg-accent transition"
         aria-label="Notifications"
