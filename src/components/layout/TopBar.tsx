@@ -6,10 +6,12 @@ import { notifications } from "@/lib/mock-data";
 
 export function TopBar() {
   const { user } = useAuth();
+  const { theme, toggle } = useTheme();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const unread = notifications.filter((n) => n.unread).length;
   const crumb = pathname.split("/").filter(Boolean).slice(-1)[0] ?? "dashboard";
+
 
   return (
     <header className="sticky top-0 z-30 h-16 flex items-center gap-3 px-4 md:px-6 border-b border-border bg-background/70 backdrop-blur-xl">
