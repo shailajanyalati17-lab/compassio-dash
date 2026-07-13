@@ -1,6 +1,7 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Bell, Search, Sparkles, Command } from "lucide-react";
+import { Bell, Search, Sparkles, Command, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/lib/auth";
+import { useTheme } from "@/lib/theme";
 import { notifications } from "@/lib/mock-data";
 
 export function TopBar() {
