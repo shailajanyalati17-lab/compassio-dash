@@ -94,8 +94,8 @@ export function TopBar() {
         </div>
       </div>
 
-      <div ref={wrapRef} className="hidden lg:block relative">
-        <div className="flex items-center gap-2 h-9 w-80 rounded-lg border border-border bg-card/60 px-3 text-sm focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary/40 transition">
+      <div ref={wrapRef} className="relative">
+        <div className="flex items-center gap-2 h-9 w-44 sm:w-64 lg:w-80 rounded-lg border border-border bg-card/60 px-3 text-sm focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary/40 transition">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input
             ref={inputRef}
