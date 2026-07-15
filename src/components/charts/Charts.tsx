@@ -82,14 +82,38 @@ export function CompareBars({ data }: { data: SeriesPoint[] }) {
 }
 
 export function DonutPie({ data }: { data: { name: string; value: number; color: string }[] }) {
+  const total = data.reduce((s, d) => s + d.value, 0) || 1;
   return (
-    <ResponsiveContainer width="100%" height={260}>
-      <PieChart>
-        <Tooltip {...tooltip} />
-        <Pie data={data} dataKey="value" innerRadius={65} outerRadius={100} paddingAngle={3} stroke="none">
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+        <Tooltip {...tooltip} formatter={(v: number, n: string) => [`${v} (${Math.round((v / total) * 100)}%)`, n]} />
+        <Pie
+          data={data}
+          dataKey="value"
+          nameKey="name"
+          innerRadius={55}
+          outerRadius={85}
+          paddingAngle={3}
+          stroke="none"
+          isAnimationActive
+        >
           {data.map((d, i) => <Cell key={i} fill={d.color} />)}
         </Pie>
-        <Legend wrapperStyle={{ fontSize: 12 }} />
+        <Legend
+          verticalAlign="bottom"
+          align="center"
+          iconType="circle"
+          wrapperStyle={{ fontSize: 12, color: "var(--foreground)", paddingTop: 8 }}
+          formatter={(value: string, entry) => {
+            const payload = entry?.payload as unknown as { value?: number } | undefined;
+            const v = payload?.value ?? 0;
+            return (
+              <span style={{ color: "var(--foreground)" }}>
+                {value} <span style={{ color: "var(--muted-foreground)" }}>· {Math.round((v / total) * 100)}%</span>
+              </span>
+            );
+          }}
+        />
       </PieChart>
     </ResponsiveContainer>
   );
