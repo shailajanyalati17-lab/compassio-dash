@@ -135,12 +135,12 @@ export const tasks = [
 ];
 
 export const calendarEvents = [
-  { date: "2025-11-10", title: "Board meeting" },
-  { date: "2025-11-12", title: "Vendor call — Contoso" },
-  { date: "2025-11-15", title: "Product launch: Nimbus Pro 2.0" },
-  { date: "2025-11-18", title: "Marketing sync" },
-  { date: "2025-11-22", title: "All-hands" },
-  { date: "2025-11-28", title: "Q4 close prep" },
+  { date: "2026-07-06", title: "Board meeting" },
+  { date: "2026-07-09", title: "Vendor call — Contoso" },
+  { date: "2026-07-15", title: "Product launch: Nimbus Pro 2.0" },
+  { date: "2026-07-20", title: "Marketing sync" },
+  { date: "2026-07-23", title: "All-hands" },
+  { date: "2026-07-29", title: "Q3 close prep" },
 ];
 
 export const forecast = {

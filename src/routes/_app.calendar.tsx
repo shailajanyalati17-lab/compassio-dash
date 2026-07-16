@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_app/calendar")({
 });
 
 function CalendarPage() {
-  const [month, setMonth] = useState(new Date(2025, 10, 1));
+  const [month, setMonth] = useState(new Date(2026, 6, 1));
   const first = new Date(month.getFullYear(), month.getMonth(), 1);
   const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const startOffset = first.getDay();
