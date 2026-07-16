@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Sparkles, DollarSign, ShoppingCart, TrendingUp, Package, Users, Boxes, UserCog, Download, Filter, ArrowRight,
 } from "lucide-react";
+import { useState } from "react";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { PageHeader, Card, Badge } from "@/components/layout/PageHeader";
 import { LineTrend, AreaTrend, BarTrend, CompareBars, DonutPie } from "@/components/charts/Charts";
@@ -18,6 +19,8 @@ function DashboardPage() {
   const { user } = useAuth();
   const hour = new Date().getHours();
   const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const [range, setRange] = useState<3 | 6 | 12>(12);
+  const rangedSales = salesTrend.slice(-range);
 
   return (
     <>
@@ -87,9 +90,31 @@ function DashboardPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <Card className="lg:col-span-2" onClick={() => navigate({ to: "/sales" })}>
-          <ChartHeader title="Sales trend" hint="Last 12 months" />
-          <LineTrend data={salesTrend} color="var(--chart-1)" />
+        <Card className="lg:col-span-2">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className="text-sm font-medium">Sales trend</div>
+              <div className="text-xs text-muted-foreground">Last {range} months</div>
+            </div>
+            <div className="flex items-center gap-1 rounded-lg border border-border p-0.5">
+              {([3, 6, 12] as const).map((r) => (
+                <button
+                  key={r}
+                  onClick={(e) => { e.stopPropagation(); setRange(r); }}
+                  className={`text-xs px-2.5 py-1 rounded-md transition ${range === r ? "bg-[image:var(--gradient-primary)] text-white" : "text-muted-foreground hover:text-foreground"}`}
+                >
+                  {r}M
+                </button>
+              ))}
+              <button
+                onClick={(e) => { e.stopPropagation(); navigate({ to: "/sales" }); }}
+                className="text-xs px-2.5 py-1 rounded-md text-primary hover:underline inline-flex items-center gap-1"
+              >
+                Explore <ArrowRight className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          <LineTrend data={rangedSales} color="var(--chart-1)" />
         </Card>
         <Card onClick={() => navigate({ to: "/analytics" })}>
           <ChartHeader title="Product mix" hint="Revenue share" />
