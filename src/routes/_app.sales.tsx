@@ -23,10 +23,10 @@ function SalesPage() {
         icon={ShoppingCart}
         actions={
           <>
-            <button onClick={() => toast.success("Exported PDF")} className="h-9 px-3 rounded-lg border border-border bg-card hover:bg-accent text-sm inline-flex items-center gap-2">
+            <button onClick={() => exportSalesPDF(rows)} className="h-9 px-3 rounded-lg border border-border bg-card hover:bg-accent text-sm inline-flex items-center gap-2">
               <Download className="h-4 w-4" /> PDF
             </button>
-            <button onClick={() => toast.success("Exported Excel")} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2">
+            <button onClick={() => exportSalesExcel(rows)} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2">
               <FileSpreadsheet className="h-4 w-4" /> Excel
             </button>
           </>
