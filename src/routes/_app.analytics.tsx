@@ -5,6 +5,7 @@ import { KpiCard } from "@/components/dashboard/KpiCard";
 import { LineTrend, AreaTrend, BarTrend, CompareBars, DonutPie } from "@/components/charts/Charts";
 import { kpis, salesTrend, revenueTrend, customerGrowth, monthlyCompare, productMix, aiInsights } from "@/lib/mock-data";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export-utils";
 
 export const Route = createFileRoute("/_app/analytics")({
   component: AnalyticsPage,
