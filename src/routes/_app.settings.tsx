@@ -29,7 +29,7 @@ function SettingsPage() {
         {tab === "General" && (
           <div className="space-y-4">
             <Row label="Theme"><Badge tone="info">Dark (BizPilot)</Badge></Row>
-            <Row label="Language"><select className="h-9 rounded-lg border border-border bg-card px-3 text-sm"><option>English (US)</option><option>English (UK)</option><option>Español</option><option>Deutsch</option></select></Row>
+            <Row label={t("Language")}><select value={lang} onChange={(e) => { setLang(e.target.value as Lang); toast.success(`Language: ${LANG_LABELS[e.target.value as Lang]}`); }} className="h-9 rounded-lg border border-border bg-card px-3 text-sm">{(Object.keys(LANG_LABELS) as Lang[]).map((k) => <option key={k} value={k}>{LANG_LABELS[k]}</option>)}</select></Row>
             <Row label="Timezone"><select className="h-9 rounded-lg border border-border bg-card px-3 text-sm"><option>UTC</option><option>America/New_York</option><option>Europe/Berlin</option><option>Asia/Tokyo</option></select></Row>
           </div>
         )}
