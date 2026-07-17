@@ -41,7 +41,7 @@ function DashboardPage() {
             </p>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => toast.success("Exporting overview…")} className="h-10 px-4 rounded-lg border border-border bg-card/70 hover:bg-accent text-sm inline-flex items-center gap-2">
+            <button onClick={exportOverview} className="h-10 px-4 rounded-lg border border-border bg-card/70 hover:bg-accent text-sm inline-flex items-center gap-2">
               <Download className="h-4 w-4" /> Export
             </button>
             <button onClick={() => navigate({ to: "/ai-assistant" })} className="h-10 px-4 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary hover:brightness-110 inline-flex items-center gap-2">
