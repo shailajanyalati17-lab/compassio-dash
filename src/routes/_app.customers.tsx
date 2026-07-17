@@ -6,6 +6,7 @@ import { AreaTrend, DonutPie } from "@/components/charts/Charts";
 import { customers, customerGrowth, kpis } from "@/lib/mock-data";
 import { useState } from "react";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export-utils";
 
 export const Route = createFileRoute("/_app/customers")({
   component: CustomersPage,
@@ -26,7 +27,7 @@ function CustomersPage() {
         title="Customers"
         description="Directory, segmentation, lifetime value, churn prediction, feedback and satisfaction."
         icon={Users}
-        actions={<button onClick={() => toast.success("Exported customers")} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2"><Download className="h-4 w-4" /> Export</button>}
+        actions={<button onClick={() => { downloadCSV("customers.csv", ["ID","Name","Email","Plan","LTV","Orders","Status","Joined"], rows.map((c) => [c.id, c.name, c.email, c.plan, c.ltv, c.orders, c.status, c.joined])); toast.success("Customers exported"); }} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2"><Download className="h-4 w-4" /> Export</button>}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

@@ -3,6 +3,9 @@ import { Settings as SettingsIcon } from "lucide-react";
 import { PageHeader, Card, Badge } from "@/components/layout/PageHeader";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useLang, LANG_LABELS, type Lang } from "@/lib/i18n";
+import { downloadBlob } from "@/lib/export-utils";
+import { customers, orders, invoices } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/_app/settings")({
   component: SettingsPage,
@@ -12,6 +15,7 @@ const tabs = ["General","Notifications","Security","Privacy","API Keys","Company
 
 function SettingsPage() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("General");
+  const { lang, setLang, t } = useLang();
   return (
     <>
       <PageHeader title="Settings" description="Manage your workspace, security, keys and preferences." icon={SettingsIcon} />
@@ -25,7 +29,7 @@ function SettingsPage() {
         {tab === "General" && (
           <div className="space-y-4">
             <Row label="Theme"><Badge tone="info">Dark (BizPilot)</Badge></Row>
-            <Row label="Language"><select className="h-9 rounded-lg border border-border bg-card px-3 text-sm"><option>English (US)</option><option>English (UK)</option><option>Español</option><option>Deutsch</option></select></Row>
+            <Row label={t("Language")}><select value={lang} onChange={(e) => { setLang(e.target.value as Lang); toast.success(`Language: ${LANG_LABELS[e.target.value as Lang]}`); }} className="h-9 rounded-lg border border-border bg-card px-3 text-sm">{(Object.keys(LANG_LABELS) as Lang[]).map((k) => <option key={k} value={k}>{LANG_LABELS[k]}</option>)}</select></Row>
             <Row label="Timezone"><select className="h-9 rounded-lg border border-border bg-card px-3 text-sm"><option>UTC</option><option>America/New_York</option><option>Europe/Berlin</option><option>Asia/Tokyo</option></select></Row>
           </div>
         )}
@@ -47,7 +51,7 @@ function SettingsPage() {
           <div className="space-y-3">
             <Row label="Data sharing (analytics)"><Toggle /></Row>
             <Row label="Personalized AI suggestions"><Toggle defaultChecked /></Row>
-            <button onClick={() => toast.success("Export requested")} className="h-9 px-3 rounded-lg border border-border hover:bg-accent text-sm">Request data export</button>
+            <button onClick={() => { const payload = JSON.stringify({ exportedAt: new Date().toISOString(), customers, orders, invoices }, null, 2); downloadBlob("bizpilot-data-export.json", payload, "application/json"); toast.success("Data export downloaded"); }} className="h-9 px-3 rounded-lg border border-border hover:bg-accent text-sm">Request data export</button>
           </div>
         )}
         {tab === "API Keys" && (

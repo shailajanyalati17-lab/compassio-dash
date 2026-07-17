@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 const groups: { label: string; items: { to: string; label: string; icon: React.ComponentType<{ className?: string }> }[] }[] = [
   {
@@ -56,6 +57,7 @@ export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useLang();
 
   return (
     <aside
@@ -89,7 +91,7 @@ export function Sidebar() {
         {groups.map((g) => (
           <div key={g.label}>
             {!collapsed && (
-              <div className="px-3 pb-1 text-[10px] uppercase tracking-widest text-muted-foreground/70">{g.label}</div>
+              <div className="px-3 pb-1 text-[10px] uppercase tracking-widest text-muted-foreground/70">{t(g.label)}</div>
             )}
             <ul className="space-y-0.5">
               {g.items.map((it) => {
@@ -113,7 +115,7 @@ export function Sidebar() {
                         <Icon className="h-4 w-4" />
                         {active && <span className="absolute inset-0 rounded-md ring-1 ring-white/20" />}
                       </span>
-                      {!collapsed && <span className="truncate">{it.label}</span>}
+                      {!collapsed && <span className="truncate">{t(it.label)}</span>}
                     </Link>
                   </li>
                 );

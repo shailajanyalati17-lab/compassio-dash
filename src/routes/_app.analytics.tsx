@@ -5,6 +5,7 @@ import { KpiCard } from "@/components/dashboard/KpiCard";
 import { LineTrend, AreaTrend, BarTrend, CompareBars, DonutPie } from "@/components/charts/Charts";
 import { kpis, salesTrend, revenueTrend, customerGrowth, monthlyCompare, productMix, aiInsights } from "@/lib/mock-data";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export-utils";
 
 export const Route = createFileRoute("/_app/analytics")({
   component: AnalyticsPage,
@@ -22,7 +23,7 @@ function AnalyticsPage() {
             <button className="h-9 px-3 rounded-lg border border-border bg-card hover:bg-accent text-sm inline-flex items-center gap-2">
               <Calendar className="h-4 w-4" /> Last 12 months
             </button>
-            <button onClick={() => toast.success("Exported CSV")} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2">
+            <button onClick={() => { downloadCSV("analytics.csv", ["Month","Sales","Revenue","Customers","Profit"], salesTrend.map((s, i) => [s.name, s.value, revenueTrend[i]?.value ?? 0, customerGrowth[i]?.value ?? 0, kpis.profit.series[i]?.value ?? 0])); toast.success("Analytics exported"); }} className="h-9 px-3 rounded-lg bg-[image:var(--gradient-primary)] text-white text-sm font-medium glow-primary inline-flex items-center gap-2">
               <Download className="h-4 w-4" /> Export
             </button>
           </>
