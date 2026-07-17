@@ -57,6 +57,7 @@ export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useLang();
 
   return (
     <aside
