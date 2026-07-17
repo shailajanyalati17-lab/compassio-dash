@@ -115,7 +115,7 @@ export function Sidebar() {
                         <Icon className="h-4 w-4" />
                         {active && <span className="absolute inset-0 rounded-md ring-1 ring-white/20" />}
                       </span>
-                      {!collapsed && <span className="truncate">{it.label}</span>}
+                      {!collapsed && <span className="truncate">{t(it.label)}</span>}
                     </Link>
                   </li>
                 );
