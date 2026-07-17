@@ -51,7 +51,7 @@ function SettingsPage() {
           <div className="space-y-3">
             <Row label="Data sharing (analytics)"><Toggle /></Row>
             <Row label="Personalized AI suggestions"><Toggle defaultChecked /></Row>
-            <button onClick={() => toast.success("Export requested")} className="h-9 px-3 rounded-lg border border-border hover:bg-accent text-sm">Request data export</button>
+            <button onClick={() => { const payload = JSON.stringify({ exportedAt: new Date().toISOString(), customers, orders, invoices }, null, 2); downloadBlob("bizpilot-data-export.json", payload, "application/json"); toast.success("Data export downloaded"); }} className="h-9 px-3 rounded-lg border border-border hover:bg-accent text-sm">Request data export</button>
           </div>
         )}
         {tab === "API Keys" && (
