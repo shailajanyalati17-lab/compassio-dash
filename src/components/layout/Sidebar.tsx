@@ -91,7 +91,7 @@ export function Sidebar() {
         {groups.map((g) => (
           <div key={g.label}>
             {!collapsed && (
-              <div className="px-3 pb-1 text-[10px] uppercase tracking-widest text-muted-foreground/70">{g.label}</div>
+              <div className="px-3 pb-1 text-[10px] uppercase tracking-widest text-muted-foreground/70">{t(g.label)}</div>
             )}
             <ul className="space-y-0.5">
               {g.items.map((it) => {
