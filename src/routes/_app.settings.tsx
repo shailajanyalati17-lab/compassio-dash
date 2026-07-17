@@ -3,6 +3,9 @@ import { Settings as SettingsIcon } from "lucide-react";
 import { PageHeader, Card, Badge } from "@/components/layout/PageHeader";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useLang, LANG_LABELS, type Lang } from "@/lib/i18n";
+import { downloadBlob } from "@/lib/export-utils";
+import { customers, orders, invoices } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/_app/settings")({
   component: SettingsPage,
@@ -12,6 +15,7 @@ const tabs = ["General","Notifications","Security","Privacy","API Keys","Company
 
 function SettingsPage() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("General");
+  const { lang, setLang, t } = useLang();
   return (
     <>
       <PageHeader title="Settings" description="Manage your workspace, security, keys and preferences." icon={SettingsIcon} />
