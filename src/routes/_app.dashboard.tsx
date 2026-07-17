@@ -14,6 +14,30 @@ export const Route = createFileRoute("/_app/dashboard")({
   component: DashboardPage,
 });
 
+function exportOverview() {
+  const esc = (v: string | number) => {
+    const s = String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const lines: string[] = [];
+  lines.push("Metric,Value,Delta %");
+  lines.push(["Revenue", kpis.revenue.value, kpis.revenue.delta].map(esc).join(","));
+  lines.push(["Sales", kpis.sales.value, kpis.sales.delta].map(esc).join(","));
+  lines.push(["Profit", kpis.profit.value, kpis.profit.delta].map(esc).join(","));
+  lines.push(["Orders", kpis.orders.value, kpis.orders.delta].map(esc).join(","));
+  lines.push(["Customers", kpis.customers.value, kpis.customers.delta].map(esc).join(","));
+  lines.push("");
+  lines.push("Month,Sales,Revenue");
+  salesTrend.forEach((s, i) => lines.push([s.name, s.value, revenueTrend[i]?.value ?? 0].map(esc).join(",")));
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "dashboard-overview.csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast.success("Overview exported");
+}
+
 function DashboardPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
