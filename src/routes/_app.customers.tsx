@@ -6,6 +6,7 @@ import { AreaTrend, DonutPie } from "@/components/charts/Charts";
 import { customers, customerGrowth, kpis } from "@/lib/mock-data";
 import { useState } from "react";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export-utils";
 
 export const Route = createFileRoute("/_app/customers")({
   component: CustomersPage,
